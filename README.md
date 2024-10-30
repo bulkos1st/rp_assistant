@@ -36,8 +36,8 @@ number of devices is not convenient.
 
 1. **Clone the repository:**
    ```
-   git clone https://github.com/username/project-name.git
-   cd project-name
+   git clone https://github.com/bulkos1st/rp_assistant.git
+   cd rp_assistant
    ```
 
 2. **Create a virtual environment:**
