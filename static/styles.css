@@ -1,0 +1,27 @@
+/* Style the loading bar */
+#loadingBarContainer {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+    display: none; /* Initially hidden */
+}
+
+#loadingBar {
+    height: 10px;
+    width: 0%;
+    background-color: #4caf50;
+    transition: width 0.5s ease; /* Smooth transition */
+}
+
+/* Style the button */
+#DeleteButton {
+    /* padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none; */
+    background-color: #c2333a;
+    color: white;
+    /* border-radius: 5px; */
+}
