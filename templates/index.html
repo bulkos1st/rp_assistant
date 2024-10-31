@@ -8,19 +8,17 @@
     <h4>Load devices from Restore Point</h4>
        <!-- Button to trigger refresh -->
        <button id="refreshButton" onclick="refreshData()">Refresh</button>
-
        <!-- Loading bar container -->
-       <div id="loadingBarContainer">
-           <div id="loadingBar"></div>
-       </div>
+       <div id="loadingBarContainer"><div id="loadingBar"></div></div>
+
     <!-- <form action="{{ url_for('refresh_devices') }}" method="post">
     <button type="submit" name="refresh_devices" value="true">Refresh from RP</button>
     </form> -->
     Loaded: 
     {% if  updated %} 
-    OK (Last refresh: {{ updated }})
+        OK (Last refresh: {{ updated }})
     {% else %} 
-    NOT OK
+        NOT OK
     {% endif %} 
     <br/>
     <h4>Delete devices from Restore Point</h4>
@@ -28,10 +26,9 @@
         <label for="delete_ips">Enter IP addresses separeated by coma ','</label>
         </br>
         <textarea name="delete_ips" id="delete_ips" rows="9" cols="50"></textarea>
-        <br><br>
-         
+        <br>
         <!-- Delete Button -->
-        <button type="submit" name="delete" value="true">Delete from RP</button> (Confirmation window will appear)
+        <button type="submit" name="delete" value="true">Delete from RP</button> (Confirmation page will appear)
     </form>
 
     <script>
@@ -41,4 +38,4 @@
         inputBox.placeholder = placeholderText;
     </script>
     <script src="static/refresh_load.js"></script>
-    {% endblock %}
+{% endblock %}

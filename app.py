@@ -44,7 +44,7 @@ def confirm_delete():
     if request.method == "POST":
         ips = request.form.get("delete_ips").split(",")
         if ips[0] == "":
-            flash("Enter IP of devices separated by coma.")
+            flash("Enter IP of devices separated by comas.")
             return redirect(url_for('index'))
 
         with open(DEVICES_FILE, 'r') as json_file:
@@ -65,7 +65,6 @@ def confirm_delete():
                 found = False
                 for entry in data['data']:
                     if entry.get('Address') == strip_ip:
-                        found = True
                         device_dict = {
                             "device_id": entry.get('ID'),
                             "device_ip": strip_ip,
@@ -108,7 +107,6 @@ def delete_devices():
 
     with open('payload_to_disable.json', 'r') as json_file:
         data = json.load(json_file)
-        print(data)
 
     for id in device_ids:
         endpoint = "/api/v2/devices"
@@ -131,7 +129,7 @@ def delete_devices():
         # if del_response.status_code == 204:
         #     print(f'Deleted Successfully {id}')
         # else:
-        #     print('Error:', put_response.status_code, put_response.text)
+        #     print('Error:', del_response.status_code, del_response.text)
 
         
     flash(f"{len(device_ids)} devices removed successfully.")
