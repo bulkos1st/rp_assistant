@@ -47,6 +47,10 @@ def confirm_delete():
             flash("Enter IP of devices separated by comas.")
             return redirect(url_for('index'))
 
+        if not os.path.exists(DEVICES_FILE):
+            flash("Devices are not loaded. Please refresh.")
+            return redirect(url_for('index'))
+
         with open(DEVICES_FILE, 'r') as json_file:
             data = json.load(json_file)
 
