@@ -88,6 +88,7 @@ def confirm_delete():
                         break
                 else:
                     not_found.append(strip_ip)
+                    sl_filter += f"{strip_ip}$,"
             else:
                 print('No "data" key in the JSON file.')
 
@@ -114,22 +115,22 @@ def delete_devices():
         payload = data[id]
 
         ##### Disable device PUT ID + padload
-        print(f"PUT: {BASE_URL}{endpoint}/{id}")
-        print(payload)
-        # put_response = requests.put(f"{BASE_URL}{endpoint}/{id}", headers=headers, json=payload)
-        # if put_response.status_code == 200:
-        #     print('Success:', put_response.json())
-        # else:
-        #     print('Error:', put_response.status_code, put_response.text)
+        # print(f"PUT: {BASE_URL}{endpoint}/{id}")
+        # print(payload)
+        put_response = requests.put(f"{BASE_URL}{endpoint}/{id}", headers=headers, json=payload)
+        if put_response.status_code == 200:
+            print('Success:', put_response.json())
+        else:
+            print('Error:', put_response.status_code, put_response.text)
 
 
         ##### Delete device DELETE ID
-        print(f"DEL: {BASE_URL}{endpoint}/{id}")
-        # del_response = requests.delete(f"{BASE_URL}{endpoint}/{id}", headers=headers)
-        # if del_response.status_code == 204:
-        #     print(f'Deleted Successfully {id}')
-        # else:
-        #     print('Error:', del_response.status_code, del_response.text)
+        # print(f"DEL: {BASE_URL}{endpoint}/{id}")
+        del_response = requests.delete(f"{BASE_URL}{endpoint}/{id}", headers=headers)
+        if del_response.status_code == 204:
+            print(f'Deleted Successfully {id}')
+        else:
+            print('Error:', del_response.status_code, del_response.text)
 
         
     flash(f"{len(device_ids)} devices removed successfully.")

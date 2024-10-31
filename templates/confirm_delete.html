@@ -33,7 +33,7 @@ Confirm Device Deletion
                     {% endfor %}
                 </tbody>
             </table>
-            <button id="DeleteButton" type="submit">Confirm Deletion</button>
+            <button id="DeleteButton" type="submit">Delete {{ devices|length }} Devices</button>
         {% else %}
             <p>No devices to delete</p>
         {% endif %}
@@ -63,8 +63,25 @@ Confirm Device Deletion
     <br/>
     {% if sl_filter %}
     <h5>BONUS: SL1 Filter to find devices by IP </h5>
-    <p>
+    <p id="textToCopy">
         {{ sl_filter }}
-    </p>
+    </p><button id="copy" onclick="copyText()">Copy Filter</button>
+
+    <script>
+        function copyText() {
+            const textElement = document.getElementById("textToCopy");
+            const tempInput = document.createElement("textarea");
+            tempInput.value = textElement.innerText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // Show a temporary message
+            const copyButton = document.getElementById("copy");
+            copyButton.innerText = "Copied!";
+            setTimeout(() => copyButton.innerText = "Copy Filter", 2000);
+        }
+    </script>
     {% endif %}
     {% endblock %}
