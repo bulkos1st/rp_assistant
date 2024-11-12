@@ -59,6 +59,7 @@ number of devices is not convenient.
    ```
    RP_TOKEN=your_token_here
    RP_URL=url_here (https://xxxx)
+   SECRET_KEY=your_secret_key_here (used to signin session cookies)
    ```
 
 ## Running the Application
