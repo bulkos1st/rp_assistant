@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Confirm Device Deletion
+{% endblock %}
+
+{% block main %}
+    <h4>Confirm Device Deletion</h4>
+
+    <form action="{{ url_for('delete_devices') }}" method="post">
+        <p>Are you sure you want to delete the following devices?</p>
+        {% if devices %}
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Device ID</th>
+                        <th>IP Address</th>
+                        <th>Hostname</th>
+                        <th>Backup Status</th>
+                        <th>Last Successful Backup</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for device in devices %}
+                    <tr>
+                        <td>{{ device.device_id }}</td>
+                        <td>{{ device.device_ip }}</td>
+                        <td>  {{ device.device_name }}  </td>
+                        <td>{{ device.device_backup_status }}</td>
+                        <td>{{ device.device_last_backup }}</td>
+                        <input type="hidden" name="device_ids" value="{{ device.device_id }}">
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- <button id="DeleteButton" type="submit">Delete {{ devices|length }} Devices</button> -->
+            <button id="DeleteButton" type="submit" onclick="return confirmDeletion()">Delete {{ devices|length }} Devices</button>
+        {% else %}
+            <p>No devices to delete</p>
+        {% endif %}
+        <a href="{{ url_for('index') }}">Cancel</a>
+    </form>
+    <br/>
+    <h5>Devices not found</h5>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>IP Address</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if not_found %}
+            {% for device in not_found %}
+            <tr>
+                <td>{{ device }}</td>
+                <td>Not Found</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+    <br/>
+    {% if sl_filter %}
+    <h5>BONUS: SL1 Filter to find devices by IP </h5>
+    <p id="textToCopy">
+        {{ sl_filter }}
+    </p><button id="copy" onclick="copyText()">Copy Filter</button>
+
+    <script>
+        function confirmDeletion() {
+            return confirm("Are you sure you want to delete the selected devices?");
+        }
+
+        function copyText() {
+            const textElement = document.getElementById("textToCopy");
+            const tempInput = document.createElement("textarea");
+            tempInput.value = textElement.innerText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // Show a temporary message
+            const copyButton = document.getElementById("copy");
+            copyButton.innerText = "Copied!";
+            setTimeout(() => copyButton.innerText = "Copy Filter", 2000);
+        }
+    </script>
+    {% endif %}
+    {% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    RP Assistant
+{% endblock %}
+
+{% block main %}
+    <h4>Load devices from Restore Point</h4>
+       <!-- Button to trigger refresh -->
+       <button id="refreshButton" onclick="refreshData()">Refresh</button>
+       <!-- Loading bar container -->
+       <div id="loadingBarContainer"><div id="loadingBar"></div></div>
+
+    <!-- <form action="{{ url_for('refresh_devices') }}" method="post">
+    <button type="submit" name="refresh_devices" value="true">Refresh from RP</button>
+    </form> -->
+    Loaded: 
+    {% if  updated %} 
+        OK (Last refresh: {{ updated }})
+    {% else %} 
+        NOT OK
+    {% endif %} 
+    <br/>
+    <h4>Delete devices from Restore Point</h4>
+    <form action="{{ url_for('confirm_delete') }}" method="post">
+        <label for="delete_ips">Enter IP addresses separeated by coma ','</label>
+        </br>
+        <textarea name="delete_ips" id="delete_ips" rows="9" cols="50"></textarea>
+        <br>
+        <!-- Delete Button -->
+        <button type="submit" name="delete" value="true">Lookup Devices</button> (Delete Confirmation page will appear)
+    </form>
+
+    <script>
+        const placeholderText = `1.1.1.1,1.1.1.2, (Single line or multiline supported)\n\n 2.2.2.2,\n3.3.3.3 ,        (Whitespaces does not matter)\n4.4.4.4/24    (CIDR notation also supported)\n5.5.5.510     (Invalid IP will be filtered out silently)`;
+        
+        const inputBox = document.getElementById("delete_ips");
+        inputBox.placeholder = placeholderText;
+    </script>
+    <script src="static/refresh_load.js"></script>
+{% endblock %}
