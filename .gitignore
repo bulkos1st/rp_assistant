@@ -10,3 +10,4 @@ htmlcov/
 docs/_build/
 .env
 *.json
+rp_devices.csv
